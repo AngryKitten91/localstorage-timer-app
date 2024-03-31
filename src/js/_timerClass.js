@@ -5,7 +5,9 @@ export default class Timer {
   constructor(name, time = 0, running = false) {
     this.name = name;
     this.nameId = this.name.replace(" ", "_");
+    this.startTime = null;
     this.time = time;
+    this.status = null;
     this.interval = false;
     this.buttonNames = ["Start", "Stop", "Reset"];
     this.prepareDOM();
@@ -95,11 +97,13 @@ export default class Timer {
 
   start = function () {
     this.interval = setInterval(this.render.bind(this), 1000);
+    this.status = "start";
   };
 
   stop = function () {
     clearInterval(this.interval);
     this.interval = false;
+    this.status = "stop";
   };
 
   reset = function () {
@@ -107,5 +111,6 @@ export default class Timer {
     this.interval = false;
     this.time = 0;
     this.render("reset");
+    this.status = "null";
   };
 }

@@ -12,6 +12,11 @@ $colorOrange: #ed553b;
 $colorBlue: #112f41;
 $colorDarkBlue: #222222;
 $colorWhite: #ffffff;
+$colorShadow: #ddd;
+
+@mixin boxShadow($radius) {
+  box-shadow: 0 0 $radius $colorShadow;
+}
 
 @mixin fontRoboto {
   font-family: "Roboto", sans-serif;

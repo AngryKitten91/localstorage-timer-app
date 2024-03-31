@@ -31,6 +31,7 @@ body {
     margin: 20px 0;
     padding: 20px;
     overflow: hidden;
+    @include boxShadow(20px);
     @include border;
     @include borderRadius;
   }
