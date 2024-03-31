@@ -16,7 +16,7 @@ export default class Timer {
     }
   }
   prepareDOM = function () {
-    const stoperContent = document.querySelector(".js-timer");
+    const $stoperContent = document.querySelector(".js-timer");
     let stoperWrapper = createElementAddClasses("div", "c-timer");
 
     let stoperTop = createElementAddClasses(
@@ -82,7 +82,7 @@ export default class Timer {
       stoperButtons.append(elem);
     });
     stoperWrapper.append(stoperTop, stoperValue, stoperButtons);
-    stoperContent.append(stoperWrapper);
+    $stoperContent.append(stoperWrapper);
   };
 
   render = function (resetValue) {
@@ -90,8 +90,8 @@ export default class Timer {
       this.time++;
     }
     let time = countTime(this.time);
-    let timerValue = document.getElementById(this.nameId);
-    timerValue.innerText = time;
+    let $timerValue = document.getElementById(this.nameId);
+    $timerValue.innerText = time;
     LOCALSTORAGE.write("data", this.time, this.name);
   };
 

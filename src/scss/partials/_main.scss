@@ -3,6 +3,7 @@ body {
   @include fontRoboto;
   font-size: $fontSize;
   color: $colorBlue;
+  background-color: $colorBlue;
 }
 
 .o {
@@ -31,6 +32,7 @@ body {
     margin: 20px 0;
     padding: 20px;
     overflow: hidden;
+    background-color: $colorWhite;
     @include boxShadow(20px);
     @include border;
     @include borderRadius;
@@ -72,6 +74,7 @@ body {
 
   &-input {
     margin: 20px 0;
+    @include boxShadow(20px);
 
     &__input {
       width: 80%;
