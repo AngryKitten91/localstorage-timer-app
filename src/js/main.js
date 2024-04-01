@@ -11,7 +11,7 @@ const initialValues = LOCALSTORAGE.read(DATA_NAME)
   ? LOCALSTORAGE.read(DATA_NAME)
   : [];
 
-console.log("initial", initialValues);
+// console.log("initial", initialValues);
 if (Object.keys(initialValues).length > 0) {
   const keys = Object.keys(initialValues);
   keys.forEach((elem) => {
@@ -23,7 +23,7 @@ if (Object.keys(initialValues).length > 0) {
   });
 } else {
   new Timer("Example Timer", 0, "start");
-  console.log("timer from initial load");
+  // console.log("timer from initial load");
 }
 
 $addBtn.addEventListener("click", onInteract);
