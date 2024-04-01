@@ -61,7 +61,8 @@ export default class Timer {
       "div",
       "o-flex",
       "c-timer__buttons",
-      "o-flex--center"
+      "o-flex--center",
+      "controls"
     );
     this.buttonNames.forEach((buttonName) => {
       const elem = createElementAddClasses("div", "c-button", "o-flex__item");
