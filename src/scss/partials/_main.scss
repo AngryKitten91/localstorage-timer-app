@@ -14,6 +14,11 @@ body {
 }
 
 .img {
+  &-presentation {
+    height: auto;
+    display: block;
+    width: 100%;
+  }
   max-width: 20%;
   height: auto;
   display: block;
@@ -47,6 +52,25 @@ body {
   flex-wrap: wrap;
   & > * {
     width: calc(100% / 2 - 10px);
+  }
+}
+
+.presentation {
+  display: flex;
+  flex-wrap: nowrap;
+  align-content: center;
+  padding: 20px;
+  overflow: hidden;
+  background-color: $colorWhite;
+  @include boxShadow(20px);
+  @include border;
+  @include borderRadius;
+  gap: 10px;
+  &-bold {
+    color: $colorOrange;
+  }
+  & > * {
+    width: calc(50% - 5px);
   }
 }
 
@@ -203,6 +227,22 @@ body {
 @media screen and (max-width: $smallScreen) {
   html {
     font-size: 10px;
+  }
+  .presentation {
+    font-size: 2rem;
+  }
+
+  .c {
+    &-timer {
+      &__value {
+        text-align: center;
+      }
+    }
+    &-button {
+      &--close {
+        padding: 10px 13px;
+      }
+    }
   }
 
   .img {
