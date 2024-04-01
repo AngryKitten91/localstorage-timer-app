@@ -6,7 +6,7 @@ module.exports = {
   entry: "./src/index.js", // Plik główny
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js",
+    filename: "index.js",
   },
   devServer: {
     static: { directory: path.join(__dirname, "dist") },

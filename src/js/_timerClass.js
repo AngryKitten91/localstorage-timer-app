@@ -12,11 +12,13 @@ export default class Timer {
     this.interval = false;
     this.buttonNames = ["Start", "Stop", "Reset"];
     this.prepareDOM();
-    if (running === "start") {
+    if (running === "start" && lastKnownRealTime) {
       const diffTime = Math.floor((Date.now() - this.lastKnownRealTime) / 1000);
       // console.log("startTime", this.time);
       this.time += diffTime;
       // console.log("end time", this.time);
+      this.start();
+    } else if (running === "start" && !lastKnownRealTime) {
       this.start();
     }
   }
