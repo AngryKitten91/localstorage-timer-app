@@ -26,21 +26,20 @@ Task Timer is a simple JavaScript application designed to help you track the tim
    ```
 
 2. Navigate to the project directory
-3.
 
-4. Install node dependencies
+3. Install node dependencies
 
    ```
    npm i
    ```
 
-5. Run dev server with webpack
+4. Run dev server with webpack
 
    ```
    npm start
    ```
 
-6. Build final package with webbpack to `/dist` folder, and deploy on your server.
+5. Build final package with webbpack to `/dist` folder, and deploy on your server.
 
    ```
    npm run build
