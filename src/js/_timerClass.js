@@ -14,9 +14,9 @@ export default class Timer {
     this.prepareDOM();
     if (running === "start") {
       const diffTime = Math.floor((Date.now() - this.lastKnownRealTime) / 1000);
-      console.log("startTime", this.time);
+      // console.log("startTime", this.time);
       this.time += diffTime;
-      console.log("end time", this.time);
+      // console.log("end time", this.time);
       this.start();
     }
   }
