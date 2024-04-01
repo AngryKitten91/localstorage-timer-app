@@ -1,5 +1,6 @@
 import { createElementAddClasses, countTime } from "./_utils.js";
 import LOCALSTORAGE from "./_utils.js";
+import DATA_NAME from "./_data.js";
 
 export default class Timer {
   constructor(name, time = 0, running = false, lastKnownRealTime = null) {
@@ -44,9 +45,9 @@ export default class Timer {
     stoperShut.innerText = "X";
     stoperShut.addEventListener("click", (event) => {
       this.stop();
-      const getData = LOCALSTORAGE.read("data");
+      const getData = LOCALSTORAGE.read(DATA_NAME);
       delete getData[this.name];
-      LOCALSTORAGE.override("data", getData);
+      LOCALSTORAGE.override(DATA_NAME, getData);
 
       const toDelete = event.target.parentElement.parentElement;
       toDelete.parentElement.removeChild(toDelete);
@@ -98,7 +99,7 @@ export default class Timer {
     const $timerValue = document.getElementById(this.nameId);
     $timerValue.innerText = time;
     LOCALSTORAGE.write(
-      "data",
+      DATA_NAME,
       {
         time: this.time,
         status: this.status,
@@ -121,7 +122,7 @@ export default class Timer {
     this.interval = false;
     this.status = "stop";
     LOCALSTORAGE.write(
-      "data",
+      DATA_NAME,
       {
         time: this.time,
         status: this.status,

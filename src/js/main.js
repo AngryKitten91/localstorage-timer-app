@@ -1,12 +1,14 @@
 import Timer from "./_timerClass.js";
 import LOCALSTORAGE from "./_utils.js";
+import DATA_NAME from "./_data.js";
 
 const $addBtn = document.getElementById("js-addBtn");
 const $msgBox = document.querySelector(".c-box__msg");
 
+
 // var timerNames = [];
-const initialValues = LOCALSTORAGE.read("data")
-  ? LOCALSTORAGE.read("data")
+const initialValues = LOCALSTORAGE.read(DATA_NAME)
+  ? LOCALSTORAGE.read(DATA_NAME)
   : [];
 
 if (Object.keys(initialValues).length > 0) {
@@ -16,13 +18,15 @@ if (Object.keys(initialValues).length > 0) {
     const status = initialValues[elem].status;
     const lastKnownRealTime = initialValues[elem].realTime;
 
-    return new Timer(elem, timerValue, status, lastKnownRealTime);
+    new Timer(elem, timerValue, status, lastKnownRealTime);
   });
+} else {
+  new Timer("Example Timer");
 }
 
 $addBtn.addEventListener("click", function () {
-  const names = LOCALSTORAGE.read("data")
-    ? Object.keys(LOCALSTORAGE.read("data"))
+  const names = LOCALSTORAGE.read(DATA_NAME)
+    ? Object.keys(LOCALSTORAGE.read(DATA_NAME))
     : [];
   let inputValue = this.parentElement.children[0].value;
   let isNameUsed = names.some((elem) => elem === inputValue);
@@ -36,7 +40,7 @@ $addBtn.addEventListener("click", function () {
       $msgBox.children[0].classList.add("u-fadeOut");
     }, 2000);
     LOCALSTORAGE.write(
-      "data",
+      DATA_NAME,
       { time: 0, status: null, realTime: null },
       inputValue
     );
