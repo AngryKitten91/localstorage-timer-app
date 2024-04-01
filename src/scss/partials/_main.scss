@@ -6,16 +6,30 @@ body {
   background-color: $colorBlue;
 }
 
+.header {
+  &-title {
+    color: $colorWhite;
+    text-decoration: underline;
+  }
+}
+
+.img {
+  max-width: 20%;
+  height: auto;
+  display: block;
+}
+
 .o {
   &-wrap {
     max-width: $maxWidth;
     margin: 0 auto;
-    padding: 30px;
+    padding: 30px 30px 0 30px;
   }
 
   &-flex {
     display: flex;
     align-items: center;
+    gap: 20px;
 
     &--center {
       justify-content: center;
@@ -27,9 +41,18 @@ body {
   }
 }
 
+.content-wrapper {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  & > * {
+    width: calc(100% / 2 - 10px);
+  }
+}
+
 .c {
   &-timer {
-    margin: 20px 0;
+    // margin: 20px 0;
     padding: 20px;
     overflow: hidden;
     background-color: $colorWhite;
@@ -137,18 +160,40 @@ body {
   }
 }
 
+@media screen and (max-width: $mediumScreen) {
+}
+
 @media screen and (max-width: $smallScreen) {
   html {
     font-size: 10px;
   }
 
-  .c {
-    &-button {
-      padding: 10px;
+  .img {
+    max-width: 50%;
+  }
+  .content-wrapper {
+    flex-wrap: wrap;
+    & > * {
+      width: 100%;
     }
+  }
+  .header {
+    & > * {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 10px;
+      padding-bottom: 0px !important;
+    }
+    &-img {
+      order: -1;
+    }
+  }
 
-    &-timer__value {
-      margin: 10px 0;
+  .o {
+    &-flex {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
     }
   }
 }

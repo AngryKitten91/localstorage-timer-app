@@ -2,21 +2,25 @@ import { createElementAddClasses, countTime } from "./_utils.js";
 import LOCALSTORAGE from "./_utils.js";
 
 export default class Timer {
-  constructor(name, time = 0, running = false) {
+  constructor(name, time = 0, running = false, lastKnownRealTime = null) {
     this.name = name;
     this.nameId = this.name.replace(" ", "_");
-    this.startTime = null;
+    this.lastKnownRealTime = lastKnownRealTime;
     this.time = time;
     this.status = null;
     this.interval = false;
     this.buttonNames = ["Start", "Stop", "Reset"];
     this.prepareDOM();
-    if (running) {
+    if (running === "start") {
+      const diffTime = Math.floor((Date.now() - this.lastKnownRealTime) / 1000);
+      console.log("startTime", this.time);
+      this.time += diffTime;
+      console.log("end time", this.time);
       this.start();
     }
   }
   prepareDOM = function () {
-    const $stoperContent = document.querySelector(".js-timer");
+    const $stoperContent = document.querySelector(".content-wrapper");
     let stoperWrapper = createElementAddClasses("div", "c-timer");
 
     let stoperTop = createElementAddClasses(
@@ -43,25 +47,24 @@ export default class Timer {
       const getData = LOCALSTORAGE.read("data");
       delete getData[this.name];
       LOCALSTORAGE.override("data", getData);
-      // let timerNameIndex = timerNames.indexOf(this.name);
-      // timerNames.splice(timerNameIndex, 1);
-      let toDelete = event.target.parentElement.parentElement;
+
+      const toDelete = event.target.parentElement.parentElement;
       toDelete.parentElement.removeChild(toDelete);
     });
     stoperTop.append(stoperName, stoperShut);
 
-    let stoperValue = createElementAddClasses("div", "c-timer__value");
+    const stoperValue = createElementAddClasses("div", "c-timer__value");
     stoperValue.id = this.nameId;
     stoperValue.innerText = countTime(this.time);
 
-    let stoperButtons = createElementAddClasses(
+    const stoperButtons = createElementAddClasses(
       "div",
       "o-flex",
       "c-timer__buttons",
       "o-flex--center"
     );
     this.buttonNames.forEach((buttonName) => {
-      let elem = createElementAddClasses("div", "c-button", "o-flex__item");
+      const elem = createElementAddClasses("div", "c-button", "o-flex__item");
       elem.innerText = buttonName;
       if (buttonName === "Start") {
         elem.addEventListener("click", (event) => {
@@ -90,20 +93,41 @@ export default class Timer {
       this.time++;
     }
     let time = countTime(this.time);
-    let $timerValue = document.getElementById(this.nameId);
+    this.lastKnownRealTime = Date.now();
+    const $timerValue = document.getElementById(this.nameId);
     $timerValue.innerText = time;
-    LOCALSTORAGE.write("data", this.time, this.name);
+    LOCALSTORAGE.write(
+      "data",
+      {
+        time: this.time,
+        status: this.status,
+        realTime:
+          resetValue !== "reset" && resetValue === undefined
+            ? this.lastKnownRealTime
+            : null,
+      },
+      this.name
+    );
   };
 
   start = function () {
-    this.interval = setInterval(this.render.bind(this), 1000);
     this.status = "start";
+    this.interval = setInterval(this.render.bind(this), 1000);
   };
 
   stop = function () {
     clearInterval(this.interval);
     this.interval = false;
     this.status = "stop";
+    LOCALSTORAGE.write(
+      "data",
+      {
+        time: this.time,
+        status: this.status,
+        realTime: this.lastKnownRealTime,
+      },
+      this.name
+    );
   };
 
   reset = function () {
